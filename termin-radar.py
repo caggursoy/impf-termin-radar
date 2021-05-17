@@ -4,6 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 import time
 from pushsafer import init, Client
 import os
@@ -62,6 +63,7 @@ else:
 
 t_ref = int(input('Enter refresh time in seconds: '))
 plz = str(input('Enter postcode to search: '))
+rad = int(input('Enter search radius: '))
 if platform.system() == 'Linux' or platform.system() == 'Darwin':
     options = webdriver.ChromeOptions()
     options.binary_location = input('Enter Chrome application binary (usually in Applications/Google Chrome.app/Contents/MacOS/Google Chrome): ')
@@ -73,22 +75,32 @@ else:
     driver = webdriver.Chrome()
 
 toast = ToastNotifier()
+avail = ''
+avail2 = ''
 while True:
     clear()
     driver.get('https://impfterminradar.de/')
     driver.refresh()
     driver.minimize_window()
     time.sleep(0.3)
-    inputElement = driver.find_element_by_xpath('/html/body/div/div/div/div[3]/div/input[1]')
+    # inputElement = driver.find_element_by_xpath('/html/body/div/div/div/div[3]/div/input[1]') ##
+    inputElement = driver.find_element_by_xpath('/html/body/div/main/div/div[3]/div/input[1]')
+    radiusElement = driver.find_element_by_xpath('/html/body/div/main/div/div[3]/div/input[2]')
     inputElement.send_keys(plz)
     time.sleep(0.3)
-    table_id = driver.find_element_by_xpath('/html/body/div/div/div/div[4]')
+    radiusElement.send_keys(Keys.CONTROL, "a")
+    radiusElement.send_keys(rad)
+    time.sleep(0.3)
+    inputElement.send_keys(Keys.ENTER)
+    radiusElement.send_keys(Keys.ENTER)
+    time.sleep(0.3)
+    table_id = driver.find_element_by_xpath('/html/body/div/main/div/div[5]')
     row_num = len(table_id.find_elements_by_xpath("./div"))
     rows = table_id.find_elements_by_class_name('col text name')
     print('For PLZ',plz,'following vaccine centers are checked for every',t_ref,'seconds:\n')
     for i in range(0,row_num-1):
-        place = driver.find_element_by_xpath('/html/body/div/div/div/div[4]/div['+str(i+2)+']/div[1]/span').text
-        avail = driver.find_element_by_xpath('/html/body/div/div/div/div[4]/div['+str(i+2)+']/div[2]/span').text
+        place = driver.find_element_by_xpath('/html/body/div/main/div/div[5]/div['+str(i+2)+']/div[1]/span[2]').text
+        avail = driver.find_element_by_xpath('/html/body/div/main/div/div[5]/div['+str(i+2)+']/div[2]/span[2]').text
         if not avail == 'AstraZeneca':
             print(place, '/', avail)
         else:
