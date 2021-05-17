@@ -75,6 +75,7 @@ else:
     driver = webdriver.Chrome()
 
 toast = ToastNotifier()
+impf = ''
 avail = ''
 avail2 = ''
 while True:
@@ -100,16 +101,31 @@ while True:
     print('For PLZ',plz,'following vaccine centers are checked for every',t_ref,'seconds:\n')
     for i in range(0,row_num-1):
         place = driver.find_element_by_xpath('/html/body/div/main/div/div[5]/div['+str(i+2)+']/div[1]/span[2]').text
-        avail = driver.find_element_by_xpath('/html/body/div/main/div/div[5]/div['+str(i+2)+']/div[2]/span[2]').text
-        if not avail == 'AstraZeneca':
-            print(place, '/', avail)
-        else:
-            avail2 = driver.find_element_by_xpath('/html/body/div/div/div/div[4]/div['+str(i+2)+']/div[2]/span/span[1]').get_attribute("class")
-            print(place, '/', avail2)
-
-    if avail == 'status available':
-        toast.show_toast("Quota available","In Vaccine center "+place+" quota available",duration=5)
-    if avail2 == 'status available':
-        toast.show_toast("Quota available","In Vaccine center "+place+" quota available",duration=5)
+        span = '/html/body/div/main/div/div[5]/div['+str(i+2)+']/div[2]/span['
+        try:
+            impf_1617 = [driver.find_element_by_xpath(span+'1]/span[1]').text, driver.find_element_by_xpath(span+'1]/span[2]/span[1]').get_attribute("class")]
+        except:
+            pass
+        try:
+            impf_1859 = [driver.find_element_by_xpath(span+'2]/span[1]').text, driver.find_element_by_xpath(span+'2]/span[2]/span[1]').get_attribute("class")]
+        except:
+            pass
+        try:
+            impf_60 = [driver.find_element_by_xpath(span+'3]/span[1]').text, driver.find_element_by_xpath(span+'3]/span[2]/span[1]').get_attribute("class")]
+        except:
+            pass
+        # avail = driver.find_element_by_xpath('/html/body/div/main/div/div[5]/div['+str(i+2)+']/div[2]/span[1]/span[2]/span[1]').get_attribute("class")
+        print('--',place,'/',impf_1617,'/',impf_1859,'/',impf_60)
+    #     if impf != 'Warteraum' and avail == 'status available':
+    #         print('In', place, 'vaccine', impf, 'is available')
+    #     else:
+    #         avail2 = driver.find_element_by_xpath('/html/body/div/main/div/div[5]/div['+str(i+2)+']/div[2]/span[1]/span[2]/span[1]').get_attribute("class")
+    #         print(place, '/', avail2)
+    #
+    #
+    # if avail == 'status available':
+    #     toast.show_toast("Quota available","In Vaccine center "+place+" quota available",duration=5)
+    # if avail2 == 'status available':
+    #     toast.show_toast("Quota available","In Vaccine center "+place+" quota available",duration=5)
 
     time.sleep(t_ref)
