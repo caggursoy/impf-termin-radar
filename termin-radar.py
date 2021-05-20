@@ -64,10 +64,8 @@ else:
 t_ref = int(input('Enter refresh time in seconds: '))
 plz = str(input('Enter postcode to search: '))
 rad = int(input('Enter search radius: '))
-# securityKey = input('Enter private key from Pushsafer (https://www.pushsafer.com/dashboard): ') # yRniKYg4GMBgdmmdMRdx
-securityKey = 'yRniKYg4GMBgdmmdMRdx'
-# deviceId = input('Enter device ID from Pushsafer (https://www.pushsafer.com/dashboard): ') # 40226
-deviceId = 40226
+securityKey = input('Enter private key from Pushsafer (https://www.pushsafer.com/dashboard): ') # yRniKYg4GMBgdmmdMRdx
+deviceId = input('Enter device ID from Pushsafer (https://www.pushsafer.com/dashboard): ') # 40226
 ##
 if platform.system() == 'Linux' or platform.system() == 'Darwin':
     options = webdriver.ChromeOptions()
@@ -96,17 +94,6 @@ while True:
     # inputElement = driver.find_element_by_xpath('/html/body/div/div/div/div[3]/div/input[1]') ##
     inputElement = driver.find_element_by_xpath('/html/body/div/main/div/div[3]/div/input[1]')
     radiusElement = driver.find_element_by_xpath('/html/body/div/main/div/div[3]/div/input[2]')
-    # inputElement.send_keys(plz)
-    # time.sleep(0.3)
-    # try:
-    #     radiusElement.send_keys(Keys.CONTROL, "a")
-    # except:
-    #     continue
-    # radiusElement.send_keys(rad)
-    # time.sleep(0.5)
-    # inputElement.send_keys(Keys.ENTER)
-    # radiusElement.send_keys(Keys.ENTER)
-    # time.sleep(0.5)
     table_id = driver.find_element_by_xpath('/html/body/div/main/div/div[5]')
     row_num = len(table_id.find_elements_by_xpath("./div"))
     rows = table_id.find_elements_by_class_name('col text name')
@@ -129,17 +116,7 @@ while True:
         except:
             impf_60 = ['','',place]
             pass
-        # avail = driver.find_element_by_xpath('/html/body/div/main/div/div[5]/div['+str(i+2)+']/div[2]/span[1]/span[2]/span[1]').get_attribute("class")
-        # print('--',place,'/',impf_1617,'/',impf_1859,'/',impf_60)
-    #     if impf != 'Warteraum' and avail == 'status available':
-    #         print('In', place, 'vaccine', impf, 'is available')
-    #     else:
-    #         avail2 = driver.find_element_by_xpath('/html/body/div/main/div/div[5]/div['+str(i+2)+']/div[2]/span[1]/span[2]/span[1]').get_attribute("class")
-    #         print(place, '/', avail2)
-        # print(impf_60)
         if 'status available ' in impf_1859:
-        # if True:
-            # print('Vaccine available in', impf_1859)
             print('Status for PLZ',plz,'+',str(rad),'km','for age group 18-59:\n', \
             'In vaccine center:',impf_1859[2],'Available vaccines:',impf_1859[0])
             toast.show_toast("Quota available","In Vaccine center "+impf_1859[2]+" quota available",duration=5)

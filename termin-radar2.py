@@ -65,20 +65,13 @@ if platform.system() == 'Linux' or platform.system() == 'Darwin':
     options = webdriver.ChromeOptions()
     options.binary_location = input('Enter Chrome application binary (usually in Applications/Google Chrome.app/Contents/MacOS/Google Chrome): ')
     chrome_driver_binary = input('Enter Chromedriver binary location: ')
-    # options.binary_location = "/Volumes/Storage/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-    # chrome_driver_binary = "/usr/local/bin/chromedriver"
     driver = webdriver.Chrome(chrome_driver_binary, chrome_options=options)
 else:
     driver = webdriver.Chrome()
 ##
-# t_ref = int(input('Enter refresh time in seconds: '))
-t_ref = 10
+
 plzList = ['69123', '69124', '68163', '69469']
-# plzList = ['69123']
-# securityKey = input('Enter private key from Pushsafer (https://www.pushsafer.com/dashboard): ') # yRniKYg4GMBgdmmdMRdx
-securityKey = 'yRniKYg4GMBgdmmdMRdx'
-# deviceId = input('Enter device ID from Pushsafer (https://www.pushsafer.com/dashboard): ') # 40226
-deviceId = 40226
+
 ##
 cookie_count = 0
 toast = ToastNotifier()
@@ -89,8 +82,6 @@ impf_60 = ['','','']
 avail = ''
 avail2 = ''
 ind = 0
-
-## T9J5-DCYF-TKZU
 
 while True:
     # driver.get('https://impfterminradar.de/') #
@@ -159,64 +150,3 @@ while True:
                 except:
                     time.sleep(6000)
                     continue
-
-
-        # time.sleep(5)
-        # ActionChains(driver).click(button2).perform()
-    # inputElement = driver.find_element_by_xpath('/html/body/div/main/div/div[3]/div/input[1]')
-    # radiusElement = driver.find_element_by_xpath('/html/body/div/main/div/div[3]/div/input[2]')
-    # # inputElement.send_keys(plz)
-    # time.sleep(0.3)
-    # try:
-    #     radiusElement.send_keys(Keys.CONTROL, "a")
-    # except:
-    #     continue
-    # radiusElement.send_keys(rad)
-    # time.sleep(0.5)
-    # inputElement.send_keys(Keys.ENTER)
-    # radiusElement.send_keys(Keys.ENTER)
-    # time.sleep(0.5)
-    # table_id = driver.find_element_by_xpath('/html/body/div/main/div/div[5]')
-    # row_num = len(table_id.find_elements_by_xpath("./div"))
-    # rows = table_id.find_elements_by_class_name('col text name')
-    # print('For PLZ',plz,'following vaccine centers are checked for every',t_ref,'seconds:\n')
-    # for i in range(0,row_num-1):
-    #     place = driver.find_element_by_xpath('/html/body/div/main/div/div[5]/div['+str(i+2)+']/div[1]/span[2]').text
-    #     span = '/html/body/div/main/div/div[5]/div['+str(i+2)+']/div[2]/span['
-    #     try:
-    #         impf_1617 = [driver.find_element_by_xpath(span+'1]/span[1]').text, driver.find_element_by_xpath(span+'1]/span[2]/span[1]').get_attribute("class"), place]
-    #     except:
-    #         impf_1617 = ['','',place]
-    #         pass
-    #     try:
-    #         impf_1859 = [driver.find_element_by_xpath(span+'2]/span[1]').text, driver.find_element_by_xpath(span+'2]/span[2]/span[1]').get_attribute("class"), place]
-    #     except:
-    #         impf_1859 = ['','',place]
-    #         pass
-    #     try:
-    #         impf_60 = [driver.find_element_by_xpath(span+'3]/span[1]').text, driver.find_element_by_xpath(span+'3]/span[2]/span[1]').get_attribute("class"), place]
-    #     except:
-    #         impf_60 = ['','',place]
-    #         pass
-    #     # avail = driver.find_element_by_xpath('/html/body/div/main/div/div[5]/div['+str(i+2)+']/div[2]/span[1]/span[2]/span[1]').get_attribute("class")
-    #     # print('--',place,'/',impf_1617,'/',impf_1859,'/',impf_60)
-    # #     if impf != 'Warteraum' and avail == 'status available':
-    # #         print('In', place, 'vaccine', impf, 'is available')
-    # #     else:
-    # #         avail2 = driver.find_element_by_xpath('/html/body/div/main/div/div[5]/div['+str(i+2)+']/div[2]/span[1]/span[2]/span[1]').get_attribute("class")
-    # #         print(place, '/', avail2)
-    #     # print(impf_60)
-    #     if 'status available ' in impf_1859:
-    #     # if True:
-    #         # print('Vaccine available in', impf_1859)
-    #         print('Status for PLZ',plz,'+',str(rad),'km','for age group 18-59:\n', \
-    #         'In vaccine center:',impf_1859[2],'Available vaccines:',impf_1859[0])
-    #         toast.show_toast("Quota available","In Vaccine center "+impf_1859[2]+" quota available",duration=5)
-    #         ##
-    #         init(securityKey)
-    #         Client("").send_message('In vaccine center:'+str(impf_1859[2])+'Available vaccines:'+str(impf_1859[0]), "You have quota now!", \
-    #         deviceId, "1", "3", "2", 'https://impfterminradar.de/?search='+plz+'&radius='+str(rad), "Open Impfterminradar", "0", "2", "60", "600", "1", "", "", "")
-    #     else:
-    #         print('In vaccine center:',str(impf_1859[2]),'Nothing is available yet')
-
-    time.sleep(t_ref)
