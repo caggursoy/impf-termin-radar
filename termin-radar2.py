@@ -69,18 +69,12 @@ if platform.system() == 'Linux' or platform.system() == 'Darwin':
 else:
     driver = webdriver.Chrome()
 ##
-
-plzList = ['69123', '69124', '68163', '69469']
+plzList = str(input('Enter postcodes of vaccination centers to search: \nPlease use comma to separate: e.g. 12345, 67890\t: ')).replace(' ','').split(',')
+age = str(input('Please enter your age: '))
 
 ##
 cookie_count = 0
 toast = ToastNotifier()
-impf = ['','','']
-impf_1617 = ['','','']
-impf_1859 = ['','','']
-impf_60 = ['','','']
-avail = ''
-avail2 = ''
 ind = 0
 
 while True:
@@ -137,7 +131,7 @@ while True:
                     ActionChains(driver).click(button2).perform()
                     time.sleep(0.3)
                     age_inp = driver.find_element_by_xpath('/html/body/app-root/div/app-page-its-login/div/div/div[2]/app-its-login-user/div/div/app-corona-vaccination/div[3]/div/div/div/div[2]/div/app-corona-vaccination-no/form/div[3]/div/div/input')
-                    age_inp.send_keys('27')
+                    age_inp.send_keys(age)
                     prufung = driver.find_element_by_xpath('/html/body/app-root/div/app-page-its-login/div/div/div[2]/app-its-login-user/div/div/app-corona-vaccination/div[3]/div/div/div/div[2]/div/app-corona-vaccination-no/form/div[4]/button')
                     ActionChains(driver).click(prufung).perform()
                     time.sleep(0.3)
